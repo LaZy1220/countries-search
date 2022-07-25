@@ -1,6 +1,5 @@
-import axios from 'axios';
-import { useState,useEffect } from 'react';
 import {Routes,Route} from 'react-router-dom';
+import { useState } from 'react';
 import {Header} from './components/Header';
 import {Main} from './components/Main';
 import {HomePage} from './pages/HomePage'
@@ -10,15 +9,15 @@ import {NotFound} from './pages/NotFound'
 
 
 function App() {
- 
+  const [countries,setCountries]=useState([])
   return (
     <>
       <Header />
       <Main>
         <Routes>
-          <Route path='/' element={<HomePage/>}/>
+          <Route path='/' element={<HomePage countries={countries} setCountries={setCountries}/>}/>
           <Route path='/country/:name' element={<Details/>}/>
-          <Route element={<NotFound/>}/>
+          <Route path='*' element={<NotFound/>}/>
         </Routes>
       </Main>
     </>

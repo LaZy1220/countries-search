@@ -1,21 +1,25 @@
 import styled from "styled-components"
-import { useState,useEffect } from "react"
+import {useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import {Link} from 'react-router-dom'
 import { Container } from "./Container"
 import {IoMoonOutline, IoMoon} from 'react-icons/io5'
+import { selectTheme } from "../store/theme/theme-selector"
+import { setTheme } from "../store/theme/theme-actions"
 
 const HeaderEl = styled.header`
     box-shadow: var(--shadow);
-    background-colod: (--color-ui-base);
+    background-color: (--color-ui-base);
 
 `
 const Wrapper = styled.div`
 display: flex;
 justify-content:space-between;
-aligne-items:center;
+align-items: center;
 padding:2rem 0;
 `
-const Title = styled.a.attrs({
-    href:'/'
+const Title = styled(Link).attrs({
+    to:'/'
 })`
     color: var(--color-text);
     font-size: var(--fs-sm);
@@ -26,13 +30,13 @@ const ModeSwitcher = styled.div`
     color: var(--color-text);
     font-size: var(--fs-sm);
     cursor:pointer;
-    //font-weight: var(--fw-bold);
     text-transform: capitalize;
 `
 
 export const Header = ()=>{
-    const [theme,setTheme] = useState('light')
-    const toggleTheme =()=>setTheme(theme==='light'?'dark':'light')
+    const dispatch = useDispatch()
+    const theme = useSelector(selectTheme)
+    const toggleTheme =()=>dispatch(setTheme(theme==='light'?'dark':'light'))
     useEffect(()=>{
         document.body.setAttribute('data-theme',theme)
     },[theme])

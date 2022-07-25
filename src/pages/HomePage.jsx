@@ -4,18 +4,21 @@ import { ALL_COUNTRIES } from '../config';
 import {List} from '../components/List';
 import {Card} from '../components/Card';
 import { Controls } from '../components/Controls';
+import { useNavigate } from 'react-router-dom';
 
-export const HomePage = ()=>{
-    const [counties,setCountries]=useState([])
+export const HomePage = ({countries,setCountries})=>{
+    const navigate = useNavigate()
     useEffect(()=>{
-      axios.get(ALL_COUNTRIES).then(({data})=>setCountries(data))
+        if(!countries.length){
+            axios.get(ALL_COUNTRIES).then(({data})=>setCountries(data))
+        }
     }, [])
     return(
         <>
             <Controls />
           <List>
             {
-              counties.map(el=>{
+              countries.map(el=>{
                 const countryInfo={
                   img:el.flags.png,
                   name:el.name,
@@ -35,7 +38,9 @@ export const HomePage = ()=>{
                   ]
                 }
                 return (
-                  <Card key={el.name}{...countryInfo}/>
+                  <Card key={el.name} 
+                  onClick={() => navigate(`/country/${el.name}`)}
+                  {...countryInfo}/>
                 )
               })
             }

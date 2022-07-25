@@ -29,7 +29,7 @@ const CardList = styled.ul`
 `
 const CardListItem = styled.li`
     font-size: var(--fs-sm);
-    line-heigt: 1.5;
+    line-height: 1.5;
     font-weight: var(--fw-light);
 `
 
