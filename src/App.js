@@ -9,13 +9,12 @@ import {NotFound} from './pages/NotFound'
 
 
 function App() {
-  const [countries,setCountries]=useState([])
   return (
     <>
       <Header />
       <Main>
         <Routes>
-          <Route path='/' element={<HomePage countries={countries} setCountries={setCountries}/>}/>
+          <Route path='/' element={<HomePage/>}/>
           <Route path='/country/:name' element={<Details/>}/>
           <Route path='*' element={<NotFound/>}/>
         </Routes>
