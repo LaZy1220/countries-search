@@ -1,14 +1,17 @@
-import { useState,useEffect } from 'react'
+import {useDispatch,useSelector} from 'react-redux'
 import styled from 'styled-components'
+import { selectRegion } from '../store/controls/controls-selectors'
+import { setRegion } from '../store/controls/controls-actions'
 import { CustomSelect } from './CustomSelect'
 import {Search} from './Search'
 
 const options = [
     {value:'Africa',label:'Africa'},
-    {value:'America',label:'America'},
+    {value:'Americas',label:'America'},
     {value:'Asia',label:'Asia'},
     {value:'Europe',label:'Europe'},
-    {value:'Oceania',label:'Oceania'},    
+    {value:'Oceania',label:'Oceania'},  
+    {value:'Polar',label:'Polar'}  
 ]
 const Wrapper = styled.div`
     display: flex;
@@ -23,21 +26,21 @@ const Wrapper = styled.div`
 `
 
 export const Controls =()=>{
-    const [search,setSearch]=useState('')
-    const [region,setRegion]=useState('')
+    const dispatch = useDispatch()
+    const region = useSelector(selectRegion)
+    const handleChange = (region)=>{
+        dispatch(setRegion(region?.value || ''))
+    }
     return(
         <Wrapper>
-            <Search 
-                search={search}
-                setSearch={setSearch}
-            />
+            <Search />
             <CustomSelect
                 options={options}
                 playceholder="Filter by Region"
                 isClearable 
                 isSearchable={false}
-                value={region}
-                onChange={setRegion}
+                value={options[region]}
+                onChange={handleChange}
             />
         </Wrapper>
     )

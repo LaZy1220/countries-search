@@ -4,13 +4,15 @@ import {List} from '../components/List';
 import {Card} from '../components/Card';
 import { Controls } from '../components/Controls';
 import { useNavigate } from 'react-router-dom';
-import { selectAllCountries, selectCountriesInfo } from '../store/countries/counties-selectors';
+import { selectFilteredCountries,selectCountriesInfo } from '../store/countries/countries-selectors';
 import { loadingCountries } from '../store/countries/countries-actions';
+import { selectControls} from '../store/controls/controls-selectors';
 
 export const HomePage = () =>{
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const countries = useSelector(selectAllCountries)
+    const {search,region} = useSelector(selectControls)
+    const countries = useSelector((state)=>selectFilteredCountries(state,{search,region}))
     const {status,error,quantity}=useSelector(selectCountriesInfo)
     useEffect(()=>{
       if(!quantity){
