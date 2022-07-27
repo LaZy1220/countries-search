@@ -1,0 +1,1 @@
+export const selectCountry = (state)=>state.details.county
