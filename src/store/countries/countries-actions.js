@@ -2,14 +2,14 @@ import axios from 'axios'
 import  {SET_COUNTRIES,SET_LOADING,SET_ERROR} from './countries-consts'
 import {ALL_COUNTRIES} from '../../config'
 
-export const setCountries = (countries)=>({
+const setCountries = (countries)=>({
     type:SET_COUNTRIES,
     payload:countries,
 })
-export const setLoading = ()=>({
+const setLoading = ()=>({
     type:SET_LOADING,
 })
-export const setError = (error)=>({
+const setError = (error)=>({
     type:SET_ERROR,
     payload:error
 })

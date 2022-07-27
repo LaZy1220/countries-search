@@ -1,25 +1,31 @@
 import { useParams } from "react-router-dom"
 import {useSelector,useDispatch} from 'react-redux'
-import {loadingCountry} from '../store/details/details-actions'
+import {clearDetails, loadingCountry} from '../store/details/details-actions'
 import { useNavigate } from "react-router"
 import {IoArrowBack} from 'react-icons/io5'
-import { selectCountry } from "../store/details/details-selectors"
+import { selectDetails } from "../store/details/details-selectors"
 import { useEffect } from "react"
+import { Button } from "../components/Button"
+import { Info } from "../components/Info"
 export const Details= ()=>{
     const {name} = useParams()
     const navigate = useNavigate()
-    const country = useSelector(selectCountry)
+    const {country,status,error} = useSelector(selectDetails)
     const dispatch = useDispatch()
-    console.log(country);
     useEffect(()=>{
         dispatch(loadingCountry(name))
+        return ()=>{
+            dispatch(clearDetails())
+        }
     },[name,dispatch])
     return (
-        <div>
-            <button onClick={()=>navigate(-1)}>
-                <IoArrowBack/> back
-            </button>
-            Details : {name}
-        </div>
+        <>
+            <Button onClick={()=>navigate(-1)}>
+                <IoArrowBack/> Back
+            </Button>
+            {error&&<h2>Can't fetch data</h2>}
+            {status==='loading'&&<h2>Loading...</h2>}
+            {country &&(<Info push={navigate} {...country}/>)}
+        </>
     )
 }

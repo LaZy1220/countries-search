@@ -1,1 +1,2 @@
-export const selectCountry = (state)=>state.details.county
+export const selectDetails = (state)=>state.details
+export const selectNeighbors =(state)=>state.details.neighbors
