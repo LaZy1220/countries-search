@@ -4,6 +4,7 @@ import {clearDetails, loadingCountry} from '../store/details/details-actions'
 import { useNavigate } from "react-router"
 import {IoArrowBack} from 'react-icons/io5'
 import { selectDetails } from "../store/details/details-selectors"
+import {ThreeDots } from 'react-loader-spinner'
 import { useEffect } from "react"
 import { Button } from "../components/Button"
 import { Info } from "../components/Info"
@@ -24,7 +25,10 @@ export const Details= ()=>{
                 <IoArrowBack/> Back
             </Button>
             {error&&<h2>Can't fetch data</h2>}
-            {status==='loading'&&<h2>Loading...</h2>}
+            {status==='loading'&&
+                <div style={{marginLeft:'auto',marginRight:'auto',width:'250px'}}>
+                    <ThreeDots color="var(--color-ui-base)" height={80} width={250}/>
+                </div>}
             {country &&(<Info push={navigate} {...country}/>)}
         </>
     )
